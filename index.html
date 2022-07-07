@@ -14,11 +14,15 @@
         <h1>Odin-Weather-App</h1>
     </header>
     <main>
-        <form>
-            <input type="text" id="search" name="search" placeholder="city or zipcode..." new-entry required><br>
+        <form autocomplete="off">
+            <input type="text" id="search" name="search" placeholder="city or zipcode..." required><br>
+            <button id="search-btn" type="button">Search</button>
         </form>
         <div class="info-card">
-            <h5 class="city">City: </h5>
+            <div class="location">
+                <p class="city"></p>
+                <p class="date"></p>
+            </div>
             <h5 class="temp">Temperature:</h5>
         </div>
     </main>
