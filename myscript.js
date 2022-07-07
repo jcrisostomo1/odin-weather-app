@@ -1,7 +1,15 @@
-const input = document.getElementById("#city");
+const input = document.querySelector("form #city")
+const searchButton = document.getElementById("search-btn");
 
-let x = input.
+console.log(input.value)
 
+searchButton.addEventListener('click', () => {
+
+    console.log("kl");
+    console.log(input.value)
+    console.log("after")
+    input.value=''
+});
 
 let div = document.createElement("h3");
 
