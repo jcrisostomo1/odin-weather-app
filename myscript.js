@@ -1,4 +1,6 @@
-const l = document.querySelector("main-container");
+const input = document.getElementById("#city");
+
+let x = input.
 
 
 let div = document.createElement("h3");
