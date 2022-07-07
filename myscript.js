@@ -1,17 +1,27 @@
-const input = document.querySelector("form #city")
-const searchButton = document.getElementById("search-btn");
+const input = document.querySelector("#search");
+const temp = document.querySelector(".temp");
 
-console.log(input.value)
 
-searchButton.addEventListener('click', () => {
 
-    console.log("kl");
-    console.log(input.value)
-    console.log("after")
-    input.value=''
+// temp.innerText += 
+
+
+class Weather {
+    constructor (city, temp, feels_like, humidity, pressure) {
+        this.city = city;
+        this.temp = temp;
+        this.feels_like = feels_like;
+        this.humidity = humidity;
+        this.pressure = pressure;
+    } 
+}
+
+input.addEventListener('keypress', async(e) => {
+    if (e.key === 'Enter') {
+        let weather = await getWeather();
+        temp.innerText += ` ${kelvinToFahrenheit(weather.temp)}`;
+    }
 });
-
-let div = document.createElement("h3");
 
 
 let kelvinToFahrenheit = (kelvin) => {
@@ -24,11 +34,12 @@ let getWeather = async() => {
     try {
         const data = await fetch("https://api.openweathermap.org/data/2.5/weather?lat=39.347200&lon=-76.480720&appid=38a4497c5bdfd40114228ba9fcf7e3b8")
         const weather = await data.json();
-        let kelvin = weather.main.temp;
-        console.log(kelvinToFahrenheit(kelvin));
+        let city = weather.name;
+        let objData = weather.main;
+        const { temp, feels_like, humidity, pressure } = objData;
+        let myWeather = new Weather(city, temp, feels_like, humidity, pressure);
+        return myWeather;
     } catch (error) {
         console.log(error);
     }
 }
-
-getWeather();
