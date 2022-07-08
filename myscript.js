@@ -20,6 +20,7 @@ class Weather {
 searchButton.addEventListener('click', async() => {
     let inputCity = input.value;
     let weather = await getWeather(inputCity);
+    console.log(weather)
     city.innerText = `${weather.city}, ${weather.country}`;
     date.innerText = new Date().toLocaleTimeString();
     temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}`;
@@ -33,11 +34,13 @@ let kelvinToFahrenheit = (kelvin) => {
 }
 
 
-let getWeather = async(city) => {
+let getWeather = async(input) => {
     try {
-        const location = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
-        console.log(location)
-        const data = await fetch("https://api.openweathermap.org/data/2.5/weather?lat=39.347200&lon=-76.480720&appid=38a4497c5bdfd40114228ba9fcf7e3b8");
+        const locationData = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
+        const location = await locationData.json();
+        const {lon, lat} = location[0];
+        console.log(lon, lat);
+        const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
         const weather = await data.json();
         console.log(weather);
         const city = weather.name;
