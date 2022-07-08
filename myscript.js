@@ -5,9 +5,7 @@ const date = document.querySelector(".date");
 const temp = document.querySelector(".temp");
 
 class Weather {
-    constructor (city, country, temp, feels_like, humidity, pressure, temp_max, temp_min) {
-        this.city = city;
-        this.country = country;
+    constructor (temp, feels_like, humidity, pressure, temp_max, temp_min) {
         this.temp = temp;
         this.feels_like = feels_like;
         this.humidity = humidity;
@@ -15,6 +13,15 @@ class Weather {
         this.temp_max = temp_max,
         this.temp_min = temp_min;
     } 
+}
+
+class Location {
+    constructor (lat, lon, city, country, ) {
+        this.lat = lat;
+        this.lon = lon;
+        this.city = city;
+        this.country = country;
+    }
 }
 
 searchButton.addEventListener('click', async() => {
@@ -33,20 +40,32 @@ let kelvinToFahrenheit = (kelvin) => {
     return Math.round(fahrenheit);
 }
 
+let getLocation = async(input) => {
+    try {
+        let locationData = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
+        let location = await locationData.json();
+        console.log(location)
+        let {lon, lat, name, country} = location[0];
+        let myLocation = new Location(lat, lon, name, country);
+        return myLocation;
+    } catch (error) {
+        console.log(error);
+        console.log("getLocation error");
+    }
+}
+
 
 let getWeather = async(input) => {
     try {
-        const locationData = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
-        const location = await locationData.json();
-        const {lon, lat} = location[0];
-        console.log(lon, lat);
-        const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
-        const weather = await data.json();
+        console.log("we in it");
+        let location = await getLocation(input);
+        let {lat, lon} = location;
+        console.log(location)
+        let data = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
+        let weather = await data.json();
         console.log(weather);
-        const city = weather.name;
-        const country = weather.sys.country;
         const { temp, feels_like, humidity, pressure, temp_max, temp_min } = weather.main;
-        let myWeather = new Weather(city, country, temp, feels_like, humidity, pressure, temp_max, temp_min);
+        let myWeather = new Weather(temp, feels_like, humidity, pressure, temp_max, temp_min);
         return myWeather;
     } catch (error) {
         console.log(error);
