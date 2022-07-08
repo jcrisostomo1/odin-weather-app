@@ -16,22 +16,29 @@ class Weather {
 }
 
 class Location {
-    constructor (lat, lon, city, country, ) {
+    constructor (lat, lon, name, country) {
         this.lat = lat;
         this.lon = lon;
-        this.city = city;
+        this.name = name;
         this.country = country;
     }
 }
 
 searchButton.addEventListener('click', async() => {
-    let inputCity = input.value;
-    let weather = await getWeather(inputCity);
-    console.log(weather)
-    city.innerText = `${weather.city}, ${weather.country}`;
-    date.innerText = new Date().toLocaleTimeString();
-    temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}`;
-    
+    try {
+        let inputValue = input.value;
+        let location = await getLocation(inputValue);
+        let {lat, lon, name, country} = location;
+        let weather = await getWeather(lat, lon);
+        console.log(weather)
+        city.innerText = `${name}, ${country}`;
+        date.innerText = new Date().toLocaleTimeString();
+        temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}`;
+    } catch (error) {
+        console.log("GOTCHA BITCH");
+        console.log(error);
+    }
+     
 });
 
 
@@ -55,12 +62,8 @@ let getLocation = async(input) => {
 }
 
 
-let getWeather = async(input) => {
+let getWeather = async(lat, lon) => {
     try {
-        console.log("we in it");
-        let location = await getLocation(input);
-        let {lat, lon} = location;
-        console.log(location)
         let data = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
         let weather = await data.json();
         console.log(weather);
