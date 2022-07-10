@@ -28,6 +28,9 @@ searchButton.addEventListener('click', async() => {
     try {
         let inputValue = input.value;
         let location = await getLocation(inputValue);
+        if (Object.keys(location).length === 0) {
+            throw new Error("Unable to get location!");
+        }
         let {lat, lon, name, country} = location;
         let weather = await getWeather(lat, lon);
         console.log(weather)
@@ -35,10 +38,9 @@ searchButton.addEventListener('click', async() => {
         date.innerText = new Date().toLocaleTimeString();
         temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}`;
     } catch (error) {
-        console.log("GOTCHA BITCH");
+        alert(error);
         console.log(error);
     }
-     
 });
 
 
@@ -57,7 +59,7 @@ let getLocation = async(input) => {
         return myLocation;
     } catch (error) {
         console.log(error);
-        console.log("getLocation error");
+        return {};
     }
 }
 
