@@ -42,7 +42,6 @@ input {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
-    border: 2px blue solid;
 }
 
 .info-card {
@@ -52,22 +51,57 @@ input {
     align-items: center;
     width: 50%;
     height: 80%;
-    background-color: lightsteelblue;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     border-radius: 25px;
 }
 
 .location {
-    font-size: 24px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    border: 2px solid black;
+}
+
+.location > p {
+    margin: 0;
+    padding: 5px;
+    font-weight: 700;
+}
+
+.conditions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+    gap: 20px;
+}
+
+.conditions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    border: 2px solid black;
+} 
+
+.condition .one {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.location > p {
-    margin: 0;
-    padding: 15px;
+.temp {
+    font-size: 36px;
+}
+
+.condition {
+    border: 2px solid black;
+    gap: 2px;
 }
 
 footer {

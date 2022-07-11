@@ -15,7 +15,7 @@
     </header>
     <main>
         <form autocomplete="off">
-            <input type="text" id="search" name="search" placeholder="city or zipcode..." required><br>
+            <input type="text" id="search" name="search" placeholder="Enter a city..." required><br>
             <button id="search-btn" type="button">Search</button>
         </form>
         <div class="info-card">
@@ -23,10 +23,18 @@
                 <p class="city"></p>
                 <p class="date"></p>
             </div>
-            <div class="conditions">
+            <div class="conditions-container">
                 <h3>Current Conditions</h3>
+                <div class="conditions">
+                    <div class="condition one">
+                        <p class="temp"></p>
+                        <p class="high"></p>
+                        <p class="low"></p>
+                    </div>
+                    <div class="condition"></div>
+                </div>
+                <button>Convert</button>
             </div>
-            <h5 class="temp">Temperature:</h5>
         </div>
     </main>
     <footer>

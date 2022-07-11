@@ -2,7 +2,12 @@ const input = document.querySelector("#search");
 const searchButton = document.getElementById("search-btn");
 const city = document.querySelector(".city");
 const date = document.querySelector(".date");
+const container = document.querySelector(".info-card");
 const temp = document.querySelector(".temp");
+const high = document.querySelector(".high");
+const low = document.querySelector(".low");
+
+// container.style.visibility = 'hidden';
 
 class Weather {
     constructor (temp, feels_like, humidity, pressure, temp_max, temp_min) {
@@ -36,7 +41,10 @@ searchButton.addEventListener('click', async() => {
         console.log(weather)
         city.innerText = `${name}, ${country}`;
         date.innerText = new Date().toLocaleTimeString();
-        temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}`;
+        temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}℉`;
+        high.innerText = `High: ${kelvinToFahrenheit(weather.temp_max)}℉`;
+        low.innerText = `Low: ${kelvinToFahrenheit(weather.temp_min)}℉`;
+        container.style.visibility = 'visible'
     } catch (error) {
         alert(error);
         console.log(error);
@@ -53,7 +61,6 @@ let getLocation = async(input) => {
     try {
         let locationData = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
         let location = await locationData.json();
-        console.log(location)
         let {lon, lat, name, country} = location[0];
         let myLocation = new Location(lat, lon, name, country);
         return myLocation;
