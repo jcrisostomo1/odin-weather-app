@@ -50,7 +50,7 @@ input {
     justify-content: flex-start;
     align-items: center;
     width: 50%;
-    height: 80%;
+    height: 100%;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     border-radius: 25px;
 }
@@ -75,9 +75,11 @@ input {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 80%;
-    height: 80%;
-    gap: 20px;
+    height: 100%;
+    margin-bottom: 5px;
+    border: 2px solid black;
 }
 
 .conditions {

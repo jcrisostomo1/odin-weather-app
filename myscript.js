@@ -6,6 +6,7 @@ const container = document.querySelector(".info-card");
 const temp = document.querySelector(".temp");
 const high = document.querySelector(".high");
 const low = document.querySelector(".low");
+const convertButton = document.querySelector(".search-btn");
 
 // container.style.visibility = 'hidden';
 
@@ -51,10 +52,20 @@ searchButton.addEventListener('click', async() => {
     }
 });
 
+// convertButton.addEventListener('click', () => {
+//     temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}°C`;
+//     high.innerText = `High: ${kelvinToFahrenheit(weather.temp_max)}°C`;
+//     low.innerText = `Low: ${kelvinToFahrenheit(weather.temp_min)}°C`;
+// });
 
 let kelvinToFahrenheit = (kelvin) => {
     let fahrenheit = (9/5) * (kelvin-273) + 32;
     return Math.round(fahrenheit);
+}
+
+let fahrenheitToCelsius = (fahrenheit) => {
+    let celcius = (fahrenheit - 32)/1.8;
+    return celcius;
 }
 
 let getLocation = async(input) => {
