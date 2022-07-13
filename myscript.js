@@ -7,13 +7,12 @@ const temp = document.querySelector(".temp");
 const high = document.querySelector(".high");
 const low = document.querySelector(".low");
 const desc = document.querySelector(".desc");
-const conditionTwo = document.querySelector(".two")
+const conditionTwo = document.querySelector(".two");
+const iconImg = document.getElementById("weather-icon");
 const convertButton = document.getElementById("convert-btn");
 
 let isFahrenheit = true;
-
 container.style.visibility = 'hidden';
-//https://openweathermap.org/img/wn/01d@2x.png
 
 class Weather {
     constructor (temp, description, icon, feels_like, temp_max, temp_min) {
@@ -50,10 +49,8 @@ searchButton.addEventListener('click', async() => {
         temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}℉`;
         high.innerText = `High: ${kelvinToFahrenheit(weather.temp_max)}℉`;
         low.innerText = `Low: ${kelvinToFahrenheit(weather.temp_min)}℉`;
-        desc.innerText = `${weather.description.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}`
-        let iconImg = document.createElement("img");
+        desc.innerText = `${weather.description.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}`;
         iconImg.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
-        conditionTwo.prepend(iconImg);
         container.style.visibility = 'visible';
     } catch (error) {
         alert(error);
@@ -116,12 +113,3 @@ let getWeather = async(lat, lon) => {
         console.log(error);
     }
 };
-
-let getIcon = async(icon) => {
-    try {
-        let img = await fetch(`https://openweathermap.org/img/wn/${icon}@2x.png`);
-    } catch (error) {
-        console.log(error)
-    }
-    
-}

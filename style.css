@@ -8,6 +8,8 @@ body {
     flex-direction: column; 
     height: 100vh;
     width: calc(100vw - (100vw - 100%));
+    background-color: #233343;
+    color: #e5e5e5;
     margin: 0;
     padding: 0;
   }
@@ -101,7 +103,6 @@ input {
 }
 
 .condition {
-    background-color: darkgrey;
     border: 2px solid black;
     gap: 2px;
 }
