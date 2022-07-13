@@ -6,18 +6,19 @@ const container = document.querySelector(".info-card");
 const temp = document.querySelector(".temp");
 const high = document.querySelector(".high");
 const low = document.querySelector(".low");
+const desc = document.querySelector(".desc");
 const convertButton = document.getElementById("convert-btn");
 
 let isFahrenheit = true;
 
 // container.style.visibility = 'hidden';
+//https://openweathermap.org/img/wn/01d@2x.png
 
 class Weather {
-    constructor (temp, feels_like, humidity, pressure, temp_max, temp_min) {
+    constructor (temp, desc, feels_like, temp_max, temp_min) {
         this.temp = temp;
+        this.desc = desc;
         this.feels_like = feels_like;
-        this.humidity = humidity;
-        this.pressure = pressure;
         this.temp_max = temp_max,
         this.temp_min = temp_min;
     } 
@@ -47,6 +48,7 @@ searchButton.addEventListener('click', async() => {
         temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}℉`;
         high.innerText = `High: ${kelvinToFahrenheit(weather.temp_max)}℉`;
         low.innerText = `Low: ${kelvinToFahrenheit(weather.temp_min)}℉`;
+        desc.innerText = `${weather.desc.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}`
         container.style.visibility = 'visible';
     } catch (error) {
         alert(error);
@@ -101,8 +103,9 @@ let getWeather = async(lat, lon) => {
         let data = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
         let weather = await data.json();
         console.log(weather);
-        const { temp, feels_like, humidity, pressure, temp_max, temp_min } = weather.main;
-        let myWeather = new Weather(temp, feels_like, humidity, pressure, temp_max, temp_min);
+        let { temp, feels_like, temp_max, temp_min } = weather.main;
+        let desc = weather.weather[0].description;
+        let myWeather = new Weather(temp, desc, feels_like, temp_max, temp_min);
         return myWeather;
     } catch (error) {
         console.log(error);
