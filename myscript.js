@@ -7,22 +7,24 @@ const temp = document.querySelector(".temp");
 const high = document.querySelector(".high");
 const low = document.querySelector(".low");
 const desc = document.querySelector(".desc");
+const conditionTwo = document.querySelector(".two")
 const convertButton = document.getElementById("convert-btn");
 
 let isFahrenheit = true;
 
-// container.style.visibility = 'hidden';
+container.style.visibility = 'hidden';
 //https://openweathermap.org/img/wn/01d@2x.png
 
 class Weather {
-    constructor (temp, desc, feels_like, temp_max, temp_min) {
+    constructor (temp, description, icon, feels_like, temp_max, temp_min) {
         this.temp = temp;
-        this.desc = desc;
+        this.description = description;
+        this.icon = icon;
         this.feels_like = feels_like;
         this.temp_max = temp_max,
         this.temp_min = temp_min;
     } 
-}
+};
 
 class Location {
     constructor (lat, lon, name, country) {
@@ -31,7 +33,7 @@ class Location {
         this.name = name;
         this.country = country;
     }
-}
+};
 
 searchButton.addEventListener('click', async() => {
     try {
@@ -48,7 +50,10 @@ searchButton.addEventListener('click', async() => {
         temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}℉`;
         high.innerText = `High: ${kelvinToFahrenheit(weather.temp_max)}℉`;
         low.innerText = `Low: ${kelvinToFahrenheit(weather.temp_min)}℉`;
-        desc.innerText = `${weather.desc.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}`
+        desc.innerText = `${weather.description.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}`
+        let iconImg = document.createElement("img");
+        iconImg.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
+        conditionTwo.prepend(iconImg);
         container.style.visibility = 'visible';
     } catch (error) {
         alert(error);
@@ -73,17 +78,17 @@ convertButton.addEventListener('click', () => {
 let kelvinToFahrenheit = (kelvin) => {
     let fahrenheit = (9/5) * (kelvin-273) + 32;
     return Math.round(fahrenheit);
-}
+};
 
 let fahrenheitToCelsius = (fahrenheit) => {
     let celcius = (fahrenheit - 32)/1.8;
     return Math.round(celcius);
-}
+};
 
 let celciusToFahrenheit = (celcius)  => {
     let fahrenheit = (celcius * 1.8) + 32;
     return Math.round(fahrenheit);
-}
+};
 
 let getLocation = async(input) => {
     try {
@@ -96,7 +101,7 @@ let getLocation = async(input) => {
         console.log(error);
         return {};
     }
-}
+};
 
 let getWeather = async(lat, lon) => {
     try {
@@ -104,10 +109,19 @@ let getWeather = async(lat, lon) => {
         let weather = await data.json();
         console.log(weather);
         let { temp, feels_like, temp_max, temp_min } = weather.main;
-        let desc = weather.weather[0].description;
-        let myWeather = new Weather(temp, desc, feels_like, temp_max, temp_min);
+        let {description , icon} = weather.weather[0];
+        let myWeather = new Weather(temp, description, icon, feels_like, temp_max, temp_min);
         return myWeather;
     } catch (error) {
         console.log(error);
     }
+};
+
+let getIcon = async(icon) => {
+    try {
+        let img = await fetch(`https://openweathermap.org/img/wn/${icon}@2x.png`);
+    } catch (error) {
+        console.log(error)
+    }
+    
 }
