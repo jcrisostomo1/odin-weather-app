@@ -6,7 +6,9 @@ const container = document.querySelector(".info-card");
 const temp = document.querySelector(".temp");
 const high = document.querySelector(".high");
 const low = document.querySelector(".low");
-const convertButton = document.querySelector(".search-btn");
+const convertButton = document.getElementById("convert-btn");
+
+let isFahrenheit = true;
 
 // container.style.visibility = 'hidden';
 
@@ -45,18 +47,26 @@ searchButton.addEventListener('click', async() => {
         temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}℉`;
         high.innerText = `High: ${kelvinToFahrenheit(weather.temp_max)}℉`;
         low.innerText = `Low: ${kelvinToFahrenheit(weather.temp_min)}℉`;
-        container.style.visibility = 'visible'
+        container.style.visibility = 'visible';
     } catch (error) {
         alert(error);
         console.log(error);
     }
 });
 
-// convertButton.addEventListener('click', () => {
-//     temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}°C`;
-//     high.innerText = `High: ${kelvinToFahrenheit(weather.temp_max)}°C`;
-//     low.innerText = `Low: ${kelvinToFahrenheit(weather.temp_min)}°C`;
-// });
+convertButton.addEventListener('click', () => {
+    if (isFahrenheit) {
+        temp.innerText = `${fahrenheitToCelsius(parseInt(temp.innerText))}°C`;
+        high.innerText = `High: ${fahrenheitToCelsius(high.innerText.replace(/\D/g, ""))}°C`;
+        low.innerText = `Low: ${fahrenheitToCelsius(low.innerText.replace(/\D/g, ""))}°C`;
+        isFahrenheit = false;
+    } else {
+        temp.innerText = `${celciusToFahrenheit(parseInt(temp.innerText))}℉`;
+        high.innerText = `High: ${celciusToFahrenheit(high.innerText.replace(/\D/g, ""))}℉`;
+        low.innerText = `Low: ${celciusToFahrenheit(low.innerText.replace(/\D/g, ""))}℉`;
+        isFahrenheit = true;
+    }
+});
 
 let kelvinToFahrenheit = (kelvin) => {
     let fahrenheit = (9/5) * (kelvin-273) + 32;
@@ -65,7 +75,12 @@ let kelvinToFahrenheit = (kelvin) => {
 
 let fahrenheitToCelsius = (fahrenheit) => {
     let celcius = (fahrenheit - 32)/1.8;
-    return celcius;
+    return Math.round(celcius);
+}
+
+let celciusToFahrenheit = (celcius)  => {
+    let fahrenheit = (celcius * 1.8) + 32;
+    return Math.round(fahrenheit);
 }
 
 let getLocation = async(input) => {
@@ -80,7 +95,6 @@ let getLocation = async(input) => {
         return {};
     }
 }
-
 
 let getWeather = async(lat, lon) => {
     try {
