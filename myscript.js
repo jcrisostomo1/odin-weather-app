@@ -69,7 +69,7 @@ let celciusToFahrenheit = (celcius)  => {
 
 let getLocation = async(input) => {
     try {
-        let locationData = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
+        let locationData = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=38a4497c5bdfd40114228ba9fcf7e3b8`);
         let location = await locationData.json();
         let {lon, lat, name, country} = location[0];
         let myLocation = new Location(lat, lon, name, country);
