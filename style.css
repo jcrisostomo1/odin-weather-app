@@ -78,29 +78,34 @@ input {
     justify-content: flex-start;
     width: 80%;
     margin-bottom: 5px;
-    border: 2px solid black;
 }
 
 .conditions {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    height: 100%;
     width: 100%;
-    border: 2px solid black;
+    gap: 30px;
 } 
 
 
 .temp {
+    margin-top: 15px;
     font-size: 36px;
     font-weight: 600;
 }
 
+.condition > * {
+    margin: 0px;
+}
+
 .condition {
-    border: 2px solid black;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    height: 100%;
 }
 
 button {
@@ -121,8 +126,8 @@ button:active {
 }
 
 img {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 }
 
 footer {
