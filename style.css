@@ -14,7 +14,7 @@ body {
     padding: 0;
   }
 
-  header {
+header {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,6 +44,18 @@ input {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
+}
+
+.fa-search {
+    background: transparent;
+    color: black;
+    border: none;
+    outline: none;
+    margin-left: -30px;
+}
+
+#search-btn {
+    margin-left: 10px;
 }
 
 .info-card {

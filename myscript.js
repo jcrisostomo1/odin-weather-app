@@ -34,28 +34,8 @@ class Location {
     }
 };
 
-searchButton.addEventListener('click', async() => {
-    try {
-        let inputValue = input.value;
-        let location = await getLocation(inputValue);
-        if (Object.keys(location).length === 0) {
-            throw new Error("Unable to get location!");
-        }
-        let {lat, lon, name, country} = location;
-        let weather = await getWeather(lat, lon);
-        console.log(weather)
-        city.innerText = `${name}, ${country}`;
-        date.innerText = new Date().toLocaleTimeString();
-        temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}℉`;
-        high.innerText = `High: ${kelvinToFahrenheit(weather.temp_max)}℉`;
-        low.innerText = `Low: ${kelvinToFahrenheit(weather.temp_min)}℉`;
-        desc.innerText = `${weather.description.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}`;
-        iconImg.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
-        container.style.visibility = 'visible';
-    } catch (error) {
-        alert(error);
-        console.log(error);
-    }
+searchButton.addEventListener('click', () => {
+    loadData();
 });
 
 convertButton.addEventListener('click', () => {
@@ -113,3 +93,27 @@ let getWeather = async(lat, lon) => {
         console.log(error);
     }
 };
+
+let loadData = async() => {
+    try {
+        let inputValue = input.value;
+        let location = await getLocation(inputValue);
+        if (Object.keys(location).length === 0) {
+            throw new Error("Unable to get location!");
+        }
+        let {lat, lon, name, country} = location;
+        let weather = await getWeather(lat, lon);
+        console.log(weather)
+        city.innerText = `${name}, ${country}`;
+        date.innerText = new Date().toLocaleTimeString();
+        temp.innerText = ` ${kelvinToFahrenheit(weather.temp)}℉`;
+        high.innerText = `High: ${kelvinToFahrenheit(weather.temp_max)}℉`;
+        low.innerText = `Low: ${kelvinToFahrenheit(weather.temp_min)}℉`;
+        desc.innerText = `${weather.description.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}`;
+        iconImg.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
+        container.style.visibility = 'visible';
+    } catch (error) {
+        alert(error);
+        console.log(error);
+    }
+}
