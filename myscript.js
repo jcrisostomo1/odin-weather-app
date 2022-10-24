@@ -1,5 +1,6 @@
 const input = document.querySelector("#search");
 const searchButton = document.getElementById("search-btn");
+const main = document.querySelector("main");
 const city = document.querySelector(".city");
 const date = document.querySelector(".date");
 const container = document.querySelector(".info-card");
@@ -119,6 +120,13 @@ let loadData = async() => {
         low.innerText = `Low: ${kelvinToFahrenheit(weather.temp_min)}℉`;
         desc.innerText = `${weather.description.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}`;
         iconImg.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
+        if (kelvinToFahrenheit(weather.temp) > 90) {
+            main.style.backgroundImage = "url('./assets/hot.jpg')"
+        } else if (kelvinToFahrenheit(weather.temp) < 90 && kelvinToFahrenheit(weather.temp) > 46) {
+            main.style.backgroundImage = null;
+        } else {
+            main.style.backgroundImage = "url('./assets/cold.jpg')"
+        }
         container.style.visibility = 'visible';
     } catch (error) {
         alert(error);
