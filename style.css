@@ -5,7 +5,8 @@
 
 body {  
     display: flex; 
-    flex-direction: column; 
+    flex-direction: column;
+    align-items: center;
     height: 100vh;
     width: calc(100vw - (100vw - 100%));
     background-color: #233343;
@@ -19,7 +20,6 @@ header {
     justify-content: center;
     align-items: center;
     padding: 10px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
     margin-bottom: 10px;
 }
 
@@ -31,8 +31,15 @@ main {
     gap: 15px;
     padding-top: 25px;
     height: 100%;
+    width: 100%;
+    background-size: cover;                     
+    background-repeat: no-repeat;
+    background-position: center center;  
 }
 
+main img {
+    border-radius: 8px;
+}
 form {
     display: flex;
     justify-content: center;
@@ -63,10 +70,12 @@ input {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 35%;
+    width: clamp(15%, 20%, 25%);
     padding: 35px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     border-radius: 25px;
+    background-color: rgba(210, 215, 211, .5);  
+    color:	rgb(40,40,40);
 }
 
 .location {
