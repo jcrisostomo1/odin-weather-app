@@ -36,6 +36,14 @@ class Location {
 
 searchButton.addEventListener('click', () => {
     loadData();
+    input.value = '';
+});
+
+input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        loadData();
+    }
 });
 
 convertButton.addEventListener('click', () => {
