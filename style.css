@@ -70,12 +70,35 @@ input {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: clamp(15%, 20%, 25%);
     padding: 35px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     border-radius: 25px;
     background-color: rgba(210, 215, 211, .5);  
     color:	rgb(40,40,40);
+}
+
+@media only screen and (min-width : 320px) {
+    .info-card {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width : 768px) {
+    .info-card {
+        width: 40%;
+    }
+}
+
+@media only screen and (min-width : 992px) {
+    .info-card {
+        width: 25%;
+    }
+}
+
+@media only screen and (min-width : 1200px) {
+    .info-card {
+        width: 20%;
+    }
 }
 
 .location {
